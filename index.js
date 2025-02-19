@@ -8,13 +8,14 @@ async function scrap() {
 
     const $ = cheerio.load(response.data);
 
-    $(".country-name").each((index, item) => {
-        countries.push($(item).text().trim());
+    $(".country-name").each((_index, item) => {
+        countries.push({ name: $(item).text().trim() });
     });
-    
-    const countriesSortedAlphabetically = countries.sort().join(" | ")
 
-    console.log(countriesSortedAlphabetically);
+    $(".country-capital").each((index, item) => {
+        countries[index].capital = $(item).text().trim();
+    });
+    console.log(countries);
 };
 
 scrap();
